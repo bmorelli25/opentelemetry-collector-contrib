@@ -1,13 +1,11 @@
-# OpenTelemetry Collector Demo
+# Elastic exporter Demo
 
-This demo is a sample app to build the collector and exercise its tracing functionality.
+This demo is a sample app to build the collector and export traces to the Elastic Stack.
 
-To build and run the demo, switch to this directory and run
+Copy/paste in your `apm_server_url` and `secret_token`, then switch to this directory and run
 
 ```
 docker-compose up
 ```
 
-Hit `http://localhost:8081` in your browser or using something like cURL, and then open
-up `http://localhost:9411` or `http://localhost:16686` to search for the traces in the
-Zipkin or Jaeger UIs.
+Hit `http://localhost:8081` in your browser a few times and open the APM app to see the results.
