@@ -6,6 +6,4 @@ To build and run the demo, switch to this directory and run
 
 `docker-compose up`
 
-Hit `http://localhost:8081` in your browser or using something like cURL, and then open
-up `http://localhost:9411` or `http://localhost:16686` to search for the traces in the
-Zipkin or Jaeger UIs.
+Then go to `http://127.0.0.1:8080/` and click some buttons. Traces will be sent to the Elastic Stack.

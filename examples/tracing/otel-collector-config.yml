@@ -1,13 +1,15 @@
 receivers:
-  otlp:
-    endpoint: 0.0.0.0:55678
+  jaeger:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:14250
 
 exporters:
   logging:
 
   elastic:
-    apm_server_url: "${APM_SERVER}"
-    secret_token: "${TOKEN}"
+    apm_server_url: "{URL}"
+    secret_token: "{TOKEN}"
 
 processors:
   batch: 1s
@@ -24,6 +26,6 @@ service:
   extensions: [pprof, zpages, health_check]
   pipelines:
     traces:
-      receivers: [otlp]
+      receivers: [jaeger]
       exporters: [elastic, logging]
       processors: [batch, queued_retry]

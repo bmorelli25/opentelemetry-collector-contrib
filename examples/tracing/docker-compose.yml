@@ -15,33 +15,17 @@ services:
   jaeger-agent:
     image: jaegertracing/jaeger-agent:latest
     environment:
-      - REPORTER_GRPC_HOST_PORT=jaeger-collector:14250
+      - REPORTER_GRPC_HOST_PORT=otel-collector:14250
     ports:
       - "6831:6831/udp"
-    depends_on:
-      - jaeger-collector
-
-  jaeger-collector:
-    image: jaegertracing/jaeger-opentelemetry-collector
-    command: ["--config=/etc/jaeger-config.yml"]
-    volumes:
-      - ./jaeger-config.yml:/etc/jaeger-config.yml
-    ports:
-      - "1777:1777"   # pprof extension
-      - "14250" #jaeger
-      - "55678" # OpenCensus receiver
     depends_on:
       - otel-collector
 
   otel-collector:
-    build:
-      context: ../..
-      dockerfile: examples/tracing/Dockerfile
+    image: otel/opentelemetry-collector-contrib-dev:latest
     command: ["--config=/etc/otel-collector-config.yml"]
     volumes:
       - ./otel-collector-config.yml:/etc/otel-collector-config.yml
     ports:
-      - "1888:1888"   # pprof extension
-      - "13133:13133" # health_check extension
       - "14250" #jaeger
-      - "55678" # OpenCensus receiver
+      # - "55678" # OpenCensus receiver
